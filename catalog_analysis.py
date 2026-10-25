@@ -25,7 +25,9 @@ movies = [
      "rating": 7.3, "duration_min": 129, "actors": ["P. Diaz", "T. Chalamet"]},
 ]
 
-#ЭТАП 1 
+
+#ЭТАП 1
+ 
 
 def average_rating(movies):
     """Средняя оценка по каталогу."""
@@ -50,6 +52,8 @@ def duration_in_hours(minutes):
 
 
 #ЭТАП 2 
+
+
 def rating_tier(rating):
     """Категория фильма по оценке."""
     if rating >= 7:
@@ -74,6 +78,8 @@ def decade_label(year):
 
 
 # ЭТАП 3
+
+
 def print_non_comedy(movies):
     """Вывод всех фильмов, кроме комедий."""
     for movie in movies:
@@ -101,4 +107,29 @@ def count_long_movies(movies, threshold = LONG_THRESHOLD):
         if movie["duration_min"] > threshold:
             count += 1
     return count
+
+
+# ЭТАП 4
+
+
+def normalize_title(title):
+    words = title.split()
+    normalized = []
+    for word in words:
+        normalized.append(word[0].upper() + word[1:])
+    return " ".join(normalized)
+
+
+def make_slug(title):
+    return title.lower().replace(" ", "-")
+
+
+def format_report_line(movie):
+    title = normalize_title(movie["title"])
+    duration = duration_in_hours(movie["duration_min"])
+    genres = ", ".join(sorted(movie["genres"]))
+    return (
+        f'"{title}" ({movie["year"]}) — {movie["rating"]}/10, '
+        f"{duration}, жанры: {genres}"
+    )
 
