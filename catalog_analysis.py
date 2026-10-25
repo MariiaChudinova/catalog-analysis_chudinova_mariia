@@ -133,3 +133,18 @@ def format_report_line(movie):
         f"{duration}, жанры: {genres}"
     )
 
+
+# ЭТАП 5
+
+
+def titles_sorted_by_rating(movies):
+    """Названия фильмов по убыванию рейтинга."""
+    ordered = sorted(movies, key=lambda movie: movie["rating"], reverse=True)
+    return [movie["title"] for movie in ordered]
+
+
+def top_n_by_rating(movies, n):
+    """Топ-n фильмов."""
+    ordered = sorted(movies, key=lambda movie: movie["rating"], reverse=True)
+    return [(movie["title"], movie["rating"]) for movie in ordered[:n]]
+
