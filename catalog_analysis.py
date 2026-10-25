@@ -181,15 +181,23 @@ def above_average_movies(movies):
         if movie["rating"] > avg
     }
 
-print("--- Словари ---")
-print("Фильмов по жанрам:")
-for genre, count in count_by_genre(movies).items():
-    print(f"  {genre}: {count}")
 
-print("Фильмография актеров:")
-for actor, titles in actor_filmography(movies).items():
-    print(f"  {actor}: {', '.join(titles)}")
+# ЭТАП 7
 
-print("Выше среднего:")
-for title, rating in above_average_movies(movies).items():
-    print(f"  {title}: {rating}")
+
+def all_genres(movies):
+    """Множество всех уникальных жанров каталога."""
+    genres = set()
+    for movie in movies:
+        genres |= movie["genres"]
+    return genres
+
+
+def common_actors(movie1, movie2):
+    """Множество актеров, снимавшихся в обоих фильмах."""
+    return set(movie1["actors"]) & set(movie2["actors"])
+
+
+def genres_only_in_one(movies_a, movies_b):
+    """Жанры, которые есть в movies_a, но нет в movies_b."""
+    return all_genres(movies_a) - all_genres(movies_b)
