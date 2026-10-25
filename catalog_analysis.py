@@ -23,12 +23,16 @@ movies = [
      "rating": 7.3, "duration_min": 129, "actors": ["P. Diaz", "T. Chalamet"]},
 ]
 
+#ЭТАП 1 
+
 def average_rating(movies):
+    """Средняя оценка по каталогу."""
     total = sum(movie["rating"] for movie in movies)
     return round(total / len(movies), 1)
 
 
 def catalog_age_stats(movies, current_year=2026):
+    """Возраст: самого старого, самый нового, среднего)."""
     ages = [current_year - movie["year"] for movie in movies]
     oldest = max(ages)
     newest = min(ages)
@@ -37,7 +41,30 @@ def catalog_age_stats(movies, current_year=2026):
 
 
 def duration_in_hours(minutes):
+    """Перевод длительности в формат 'ч м'."""
     hours = minutes // 60
     mins = minutes % 60
     return f"{hours}ч {mins}м"
 
+#ЭТАП 2 
+def rating_tier(rating):
+    """Категория фильма по оценке."""
+    if rating >= 7:
+        # тернарный оператор: различаем "шедевр" и "хорошо"
+        tier = "шедевр" if rating >= 9 else "хорошо"
+    elif rating >= 5:
+        tier = "средне"
+    else:
+        tier = "слабо"
+    return tier
+
+
+def decade_label(year):
+    """Метка по году выпуска."""
+    match year:
+        case _ if year > 2020:
+            return "новые"
+        case _ if year >= 2015:
+            return "недавние"
+        case _:
+            return "старые"
