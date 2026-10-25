@@ -1,5 +1,7 @@
 import math
 
+LONG_THRESHOLD = 120
+
 movies = [
     {"title": "The Dune Chronicles", "year": 2021, "genres": {"sci-fi", "drama"},
      "rating": 8.6, "duration_min": 155, "actors": ["T. Chalamet", "R. Ferguson", "O. Isaac"]},
@@ -46,6 +48,7 @@ def duration_in_hours(minutes):
     mins = minutes % 60
     return f"{hours}ч {mins}м"
 
+
 #ЭТАП 2 
 def rating_tier(rating):
     """Категория фильма по оценке."""
@@ -68,3 +71,34 @@ def decade_label(year):
             return "недавние"
         case _:
             return "старые"
+
+
+# ЭТАП 3
+def print_non_comedy(movies):
+    """Вывод всех фильмов, кроме комедий."""
+    for movie in movies:
+        if "comedy" in movie["genres"]:
+            continue
+        print(movie["title"])
+
+
+def find_first_masterpiece(movies):
+    """Поиск первого шедевра"""
+    i = 0
+    while i < len(movies):
+        if movies[i]["rating"] > 9.0:
+            print(f"Первый шедевр: {movies[i]['title']}")
+            break
+        i += 1
+    else:
+        print("Шедевров не найдено")
+
+
+def count_long_movies(movies, threshold = LONG_THRESHOLD):
+    """Количество фильмов длиннее threshold минут."""
+    count = 0
+    for movie in movies:
+        if movie["duration_min"] > threshold:
+            count += 1
+    return count
+
