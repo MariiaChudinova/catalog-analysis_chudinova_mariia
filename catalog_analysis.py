@@ -224,6 +224,7 @@ def movies_by_titles(movies, titles):
     by_title = {movie["title"]: movie for movie in movies}
     return [by_title[title] for title in titles]
 
+
 def build_report(movies):
     """Итоговый консольный отчет по каталогу."""
     _, _, avg_age = catalog_age_stats(movies)
