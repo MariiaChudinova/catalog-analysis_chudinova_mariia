@@ -148,3 +148,48 @@ def top_n_by_rating(movies, n):
     ordered = sorted(movies, key=lambda movie: movie["rating"], reverse=True)
     return [(movie["title"], movie["rating"]) for movie in ordered[:n]]
 
+
+# ЭТАП 6
+
+
+def count_by_genre(movies):
+    """Словарь {жанр: количество фильмов}."""
+    counts = {}
+    for movie in movies:
+        for genre in movie["genres"]:
+            counts[genre] = counts.get(genre, 0) + 1
+    return counts
+
+
+def actor_filmography(movies):
+    """Словарь {актер: [названия фильмов]}."""
+    filmography = {}
+    for movie in movies:
+        for actor in movie["actors"]:
+            titles = filmography.get(actor, [])
+            titles.append(movie["title"])
+            filmography[actor] = titles
+    return filmography
+
+
+def above_average_movies(movies):
+    """Словарь {title: rating} для фильмов с рейтингом выше среднего."""
+    avg = average_rating(movies)
+    return {
+        movie["title"]: movie["rating"]
+        for movie in movies
+        if movie["rating"] > avg
+    }
+
+print("--- Словари ---")
+print("Фильмов по жанрам:")
+for genre, count in count_by_genre(movies).items():
+    print(f"  {genre}: {count}")
+
+print("Фильмография актеров:")
+for actor, titles in actor_filmography(movies).items():
+    print(f"  {actor}: {', '.join(titles)}")
+
+print("Выше среднего:")
+for title, rating in above_average_movies(movies).items():
+    print(f"  {title}: {rating}")
